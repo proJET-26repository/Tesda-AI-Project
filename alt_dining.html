@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alt Dinning - Restaurant Reservations</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { brand: { 500: '#da3743' } }, fontFamily: { sans: ['Inter', 'sans-serif'] } } }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-full flex flex-col">
+  <header class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3">
+      <a href="ctrl_alt_elite_ecosystem_hub_2.html" class="flex items-center space-x-2 text-brand-500 font-extrabold text-2xl">
+        <i class="fa-solid fa-utensils"></i>
+        <span>Alt<span class="text-gray-900">Dinning</span></span>
+      </a>
+      <nav class="hidden xl:flex items-center space-x-5 text-xs font-medium text-gray-600">
+        <a href="ctrl_alt_elite_ecosystem_hub_2.html" class="hover:text-brand-500">Landing Hub</a>
+        <a href="contol_estate.html" class="hover:text-brand-500">Control Estate</a>
+        <a href="alt_dining.html" class="text-brand-500 font-bold">Alt Dinning</a>
+        <a href="elite_gaming_hub.html" class="hover:text-brand-500">Elite Gaming Hub</a>
+        <a href="CreatorKit.html" class="hover:text-brand-500 text-pink-600 font-bold">CreatorKit</a>
+      </nav>
+    </div>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8 w-full">
+    <div class="bg-gray-900 text-white p-8 sm:p-12 rounded-3xl text-center space-y-3">
+      <h1 class="text-3xl sm:text-5xl font-black">Find your table for any occasion</h1>
+      <p class="text-gray-300 text-sm max-w-xl mx-auto">Book reservations at top-rated restaurants instantly.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover">
+        <div class="p-5 space-y-2">
+          <h3 class="font-bold text-lg text-gray-900">L'Osteria del Corso</h3>
+          <p class="text-xs text-gray-500">Italian • $$$ • ⭐ 4.8</p>
+          <button onclick="alert('Table successfully reserved for 7:00 PM!')" class="w-full bg-brand-500 text-white font-bold text-xs py-2.5 rounded-xl mt-3">Book 7:00 PM</button>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+        <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover">
+        <div class="p-5 space-y-2">
+          <h3 class="font-bold text-lg text-gray-900">Sakura Omakase & Sushi</h3>
+          <p class="text-xs text-gray-500">Japanese • $$$$ • ⭐ 4.9</p>
+          <button onclick="alert('Table successfully reserved for 7:00 PM!')" class="w-full bg-brand-500 text-white font-bold text-xs py-2.5 rounded-xl mt-3">Book 7:00 PM</button>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover">
+        <div class="p-5 space-y-2">
+          <h3 class="font-bold text-lg text-gray-900">The Oak & Prime Steakhouse</h3>
+          <p class="text-xs text-gray-500">Steakhouse • $$$$ • ⭐ 4.7</p>
+          <button onclick="alert('Table successfully reserved for 7:00 PM!')" class="w-full bg-brand-500 text-white font-bold text-xs py-2.5 rounded-xl mt-3">Book 7:00 PM</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-gray-900 text-gray-400 text-xs py-8 text-center">&copy; 2026 Alt Dinning Inc.</footer>
+</body>
+</html>
