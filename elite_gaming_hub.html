@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite Gaming Hub - Open Gaming Platform Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { lutris: { 500: '#f26522', darkBg: '#121316', darkCard: '#1a1c23', darkBorder: '#2e323e' } }, fontFamily: { sans: ['Inter', 'sans-serif'] } } }
+    }
+  </script>
+</head>
+<body class="bg-lutris-darkBg text-gray-100 font-sans min-h-full flex flex-col">
+  <header class="sticky top-0 z-30 bg-lutris-darkBg/95 backdrop-blur-md border-b border-lutris-darkBorder py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center space-x-3 text-white font-extrabold text-xl">
+        <div class="w-9 h-9 rounded-xl bg-lutris-500 flex items-center justify-center text-white"><i class="fa-solid fa-gamepad"></i></div>
+        <span>Elite<span class="text-lutris-500">Gaming Hub</span></span>
+      </a>
+      <!-- Always Visible Navigation -->
+      <nav class="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-gray-300">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-lutris-darkBorder hover:bg-slate-800">Landing Hub</a>
+        <a href="contol_estate.html" class="px-3 py-1.5 rounded-lg border border-lutris-darkBorder hover:bg-slate-800">Control Estate</a>
+        <a href="alt_dining.html" class="px-3 py-1.5 rounded-lg border border-lutris-darkBorder hover:bg-slate-800">Alt Dinning</a>
+        <a href="elite_gaming_hub.html" class="px-3 py-1.5 rounded-lg bg-lutris-500 text-white font-bold">Elite Gaming Hub</a>
+        <a href="CreatorKit.html" class="px-3 py-1.5 rounded-lg border border-lutris-darkBorder hover:bg-slate-800 text-pink-400 font-bold">CreatorKit</a>
+      </nav>
+    </div>
+  </header>
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 w-full">
+    <div class="bg-lutris-darkCard p-8 sm:p-12 rounded-3xl border border-lutris-darkBorder text-center space-y-3">
+      <h1 class="text-3xl sm:text-5xl font-black text-white">Open Gaming Platform <span class="text-lutris-500">for Linux & All Systems</span></h1>
+      <p class="text-gray-400 text-sm max-w-xl mx-auto">Unified launcher for Steam, GOG, Epic Games, Wine/Proton, and Retro Emulators.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-lutris-darkCard border border-lutris-darkBorder rounded-2xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=600&q=80" class="w-full h-48 object-cover">
+        <div class="p-4 space-y-2">
+          <h3 class="font-bold text-white">The Witcher 3</h3>
+          <p class="text-xs text-gray-400">Wine/Proton • ⭐ 4.9</p>
+          <button onclick="alert('Preparing script runner...')" class="w-full bg-lutris-500 text-white font-bold text-xs py-2 rounded-xl">Install / Launch</button>
+        </div>
+      </div>
+      <div class="bg-lutris-darkCard border border-lutris-darkBorder rounded-2xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80" class="w-full h-48 object-cover">
+        <div class="p-4 space-y-2">
+          <h3 class="font-bold text-white">Cyberpunk 2077</h3>
+          <p class="text-xs text-gray-400">Wine/Proton • ⭐ 4.7</p>
+          <button onclick="alert('Preparing script runner...')" class="w-full bg-lutris-500 text-white font-bold text-xs py-2 rounded-xl">Install / Launch</button>
+        </div>
+      </div>
+      <div class="bg-lutris-darkCard border border-lutris-darkBorder rounded-2xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" class="w-full h-48 object-cover">
+        <div class="p-4 space-y-2">
+          <h3 class="font-bold text-white">Hades II</h3>
+          <p class="text-xs text-gray-400">Linux Native • ⭐ 4.9</p>
+          <button onclick="alert('Preparing scrip runner...')" class="w-full bg-lutris-500 text-white font-bold text-xs py-2 rounded-xl">Install / Launch</button>
+        </div>
+      </div>
+      <div class="bg-lutris-darkCard border border-lutris-darkBorder rounded-2xl overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=600&q=80" class="w-full h-48 object-cover">
+        <div class="p-4 space-y-2">
+          <h3 class="font-bold text-white">Super Mario World</h3>
+          <p class="text-xs text-gray-400">Retro/Emulator • ⭐ 4.9</p>
+          <button onclick="alert('Preparing script runner...')" class="w-full bg-lutris-500 text-white font-bold text-xs py-2 rounded-xl">Install / Launch</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-lutris-darkCard border-t border-lutris-darkBorder text-gray-400 text-xs py-8 text-center">&copy; 2026 Elite Gaming Hub — Academic Student Project.</footer>
+</body>
+</html>
