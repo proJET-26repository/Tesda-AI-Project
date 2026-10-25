@@ -12,25 +12,25 @@
       theme: { extend: { colors: { brand: { 500: '#da3743' } }, fontFamily: { sans: ['Inter', 'sans-serif'] } } }
     }
   </script>
+  <link rel="stylesheet" href="db.css">
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-full flex flex-col">
-  <header class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm py-3">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <a href="index.html" class="flex items-center space-x-2 text-brand-500 font-extrabold text-2xl">
+  <header class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between py-3">
+      <a href="ctrl_alt_elite_ecosystem_hub_2.html" class="flex items-center space-x-2 text-brand-500 font-extrabold text-2xl">
         <i class="fa-solid fa-utensils"></i>
         <span>Alt<span class="text-gray-900">Dinning</span></span>
       </a>
-      <!-- Always Visible Navigation -->
-      <nav class="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-gray-600">
-        <a href="index.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100">Landing Hub</a>
-        <a href="contol_estate.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100">Control Estate</a>
-        <a href="alt_dining.html" class="px-3 py-1.5 rounded-lg bg-brand-500 text-white font-bold">Alt Dinning</a>
-        <a href="elite_gaming_hub.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100">Elite Gaming Hub</a>
-        <a href="CreatorKit.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-100 text-pink-600 font-bold">CreatorKit</a>
+      <nav class="hidden xl:flex items-center space-x-5 text-xs font-medium text-gray-600">
+        <a href="index.html" class="hover:text-brand-500">Landing Hub</a>
+        <a href="contol_estate.html" class="hover:text-brand-500">Control Estate</a>
+        <a href="alt_dining.html" class="text-brand-500 font-bold">Alt Dinning</a>
+        <a href="elite_gaming_hub.html" class="hover:text-brand-500">Elite Gaming Hub</a>
+        <a href="CreatorKit.html" class="hover:text-brand-500 text-pink-600 font-bold">CreatorKit</a>
       </nav>
     </div>
   </header>
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 w-full">
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-8 w-full">
     <div class="bg-gray-900 text-white p-8 sm:p-12 rounded-3xl text-center space-y-3">
       <h1 class="text-3xl sm:text-5xl font-black">Find your table for any occasion</h1>
       <p class="text-gray-300 text-sm max-w-xl mx-auto">Book reservations at top-rated restaurants instantly.</p>
@@ -63,5 +63,6 @@
     </div>
   </main>
   <footer class="bg-gray-900 text-gray-400 text-xs py-8 text-center">&copy; 2026 Alt Dinning — Academic Student Project.</footer>
+  <script src="db.js"></script>
 </body>
 </html>

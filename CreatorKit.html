@@ -31,558 +31,427 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
+  <link rel="stylesheet" href="db.css">
 </head>
-<body class="bg-lightBg text-darkText min-h-screen flex flex-col md:flex-row antialiased">
+<body class="bg-lightBg text-darkText min-h-screen flex flex-col antialiased">
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-    <!-- Mobile Header -->
-    <header class="md:hidden bg-navy text-white px-4 py-3 flex items-center justify-between shadow-md sticky top-0 z-40">
-        <div class="flex items-center space-x-2">
-            <div class="bg-pinkRed text-white p-2 rounded-xl flex items-center justify-center font-bold text-lg w-9 h-9">
+    <!-- Universal Ecosystem Top Bar -->
+    <header class="bg-navy text-white px-4 py-3 border-b border-blue-900 flex items-center justify-between shadow-md sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <div class="bg-pinkRed text-white p-2 rounded-xl flex items-center justify-center font-bold text-base w-9 h-9">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
-            <span class="font-bold text-xl tracking-wide">CreatorKit</span>
+            <div>
+                <span class="font-bold text-lg tracking-wide">CreatorKit</span>
+                <span class="text-[10px] text-brightBlue block uppercase tracking-widest font-semibold">Prompt Generator Hub</span>
+            </div>
         </div>
-        <button id="mobile-menu-btn" class="text-white text-2xl focus:outline-none">
+        <!-- Cross-Site Navigation -->
+        <nav class="hidden md:flex items-center space-x-3 text-xs font-semibold text-slate-200">
+            <a href="index.html" class="hover:text-brightBlue transition-colors">Landing Hub</a>
+            <span class="text-slate-600">|</span>
+            <a href="contol_estate.html" class="hover:text-brightBlue transition-colors">Control Estate</a>
+            <span class="text-slate-600">|</span>
+            <a href="alt_dining.html" class="hover:text-brightBlue transition-colors">Alt Dinning</a>
+            <span class="text-slate-600">|</span>
+            <a href="elite_gaming_hub.html" class="hover:text-brightBlue transition-colors">Elite Gaming Hub</a>
+            <span class="text-slate-600">|</span>
+            <a href="CreatorKit.html" class="text-pink-400 font-bold">CreatorKit</a>
+        </nav>
+        <button id="mobile-menu-btn" class="md:hidden text-white text-xl focus:outline-none">
             <i class="fa-solid fa-bars"></i>
         </button>
     </header>
 
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="bg-navy text-white w-64 md:w-72 flex-shrink-0 flex flex-col fixed md:sticky top-0 h-screen z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl">
-        <div class="p-6 hidden md:flex items-center space-x-3 border-b border-blue-900/50">
-            <div class="bg-pinkRed text-white p-2.5 rounded-xl flex items-center justify-center shadow-md text-xl w-11 h-11">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-xl tracking-tight text-white">CreatorKit</h1>
-                <p class="text-xs text-brightBlue font-medium">Content Suite & Planner</p>
-            </div>
-        </div>
+    <!-- Main App Layout with Sidebar -->
+    <div class="flex-1 flex flex-col md:flex-row relative">
 
-        <!-- Navigation Links -->
-        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
-            <a href="#dashboard" onclick="switchTab('dashboard')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors bg-brightBlue/20 text-white border-l-4 border-pinkRed">
-                <i class="fa-solid fa-chart-pie w-5 text-brightBlue"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="#prompt-generator" onclick="switchTab('prompt-generator')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
-                <i class="fa-solid fa-terminal w-5 text-brightBlue"></i>
-                <span>Prompt Generator</span>
-            </a>
-            <a href="#video-ideas" onclick="switchTab('video-ideas')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
-                <i class="fa-solid fa-lightbulb w-5 text-brightBlue"></i>
-                <span>Video Idea Generator</span>
-            </a>
-            <a href="#caption-maker" onclick="switchTab('caption-maker')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
-                <i class="fa-solid fa-pen-nib w-5 text-brightBlue"></i>
-                <span>Caption Maker</span>
-            </a>
-            <a href="#saved-vault" onclick="switchTab('saved-vault')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
-                <i class="fa-solid fa-bookmark w-5 text-brightBlue"></i>
-                <span>Saved Vault <span id="vault-badge" class="ml-auto bg-pinkRed text-xs px-2 py-0.5 rounded-full text-white">0</span></span>
-            </a>
-            <a href="#content-planner" onclick="switchTab('content-planner')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
-                <i class="fa-solid fa-calendar-days w-5 text-brightBlue"></i>
-                <span>Content Planner</span>
-            </a>
-        </nav>
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-        <!-- Footer Info -->
-        <div class="p-4 border-t border-blue-900/50 text-xs text-slate-400 flex items-center justify-between">
-            <span>CreatorKit v1.0</span>
-            <button onclick="openReadmeModal()" class="hover:text-white underline transition-colors">README.txt</button>
-        </div>
-    </aside>
-
-    <!-- Backdrop for mobile menu -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
-
-    <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto h-screen">
-        
-        <!-- Top Sticky Bar with Cross-Ecosystem Navigation Links -->
-        <header class="bg-navy text-white px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-md sticky top-0 z-20 border-b border-blue-900">
-            <div>
-                <h2 id="current-page-title" class="text-xl font-bold text-white">Dashboard Overview</h2>
-                <p id="current-page-subtitle" class="text-xs text-brightBlue">Welcome back! Manage your content workflows seamlessly.</p>
-            </div>
-            
-            <!-- Always Visible Ecosystem Navigation Bar -->
-            <nav class="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold text-slate-200">
-                <a href="index.html" class="px-3 py-1.5 rounded-lg border border-blue-800 hover:bg-white/10">Landing Hub</a>
-                <a href="contol_estate.html" class="px-3 py-1.5 rounded-lg border border-blue-800 hover:bg-white/10">Control Estate</a>
-                <a href="alt_dining.html" class="px-3 py-1.5 rounded-lg border border-blue-800 hover:bg-white/10">Alt Dinning</a>
-                <a href="elite_gaming_hub.html" class="px-3 py-1.5 rounded-lg border border-blue-800 hover:bg-white/10">Elite Gaming Hub</a>
-                <a href="CreatorKit.html" class="px-3 py-1.5 rounded-lg bg-pinkRed text-white font-bold">CreatorKit</a>
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="bg-navy text-white w-64 md:w-72 flex-shrink-0 flex flex-col fixed md:sticky top-[61px] h-[calc(100vh-61px)] z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl">
+            <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
+                <a href="#dashboard" onclick="switchTab('dashboard')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors bg-brightBlue/20 text-white border-l-4 border-pinkRed">
+                    <i class="fa-solid fa-chart-pie w-5 text-brightBlue"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#prompt-generator" onclick="switchTab('prompt-generator')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
+                    <i class="fa-solid fa-terminal w-5 text-brightBlue"></i>
+                    <span>Prompt Generator</span>
+                </a>
+                <a href="#video-ideas" onclick="switchTab('video-ideas')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
+                    <i class="fa-solid fa-lightbulb w-5 text-brightBlue"></i>
+                    <span>Video Idea Generator</span>
+                </a>
+                <a href="#caption-maker" onclick="switchTab('caption-maker')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
+                    <i class="fa-solid fa-pen-nib w-5 text-brightBlue"></i>
+                    <span>Caption Maker</span>
+                </a>
+                <a href="#saved-vault" onclick="switchTab('saved-vault')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
+                    <i class="fa-solid fa-bookmark w-5 text-brightBlue"></i>
+                    <span>Saved Vault <span id="vault-badge" class="ml-auto bg-pinkRed text-xs px-2 py-0.5 rounded-full text-white">0</span></span>
+                </a>
+                <a href="#content-planner" onclick="switchTab('content-planner')" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl font-medium transition-colors text-slate-300 hover:bg-white/10 hover:text-white">
+                    <i class="fa-solid fa-calendar-days w-5 text-brightBlue"></i>
+                    <span>Content Planner</span>
+                </a>
             </nav>
-        </header>
 
-        <!-- Content Body Wrapper -->
-        <div class="p-6 max-w-7xl w-full mx-auto flex-1">
+            <div class="p-4 border-t border-blue-900/50 text-xs text-slate-400 flex items-center justify-between">
+                <span>CreatorKit v1.0</span>
+                <button onclick="openReadmeModal()" class="hover:text-white underline transition-colors">README.txt</button>
+            </div>
+        </aside>
 
-            <!-- ================= TAB 1: DASHBOARD ================= -->
-            <section id="tab-dashboard" class="tab-content space-y-6">
-                <!-- Welcome Banner -->
-                <div class="bg-gradient-to-r from-navy to-brightBlue text-white rounded-3xl p-6 md:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
-                    <div class="absolute -right-10 -bottom-10 text-white/5 text-9xl font-black pointer-events-none">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <div class="space-y-3 z-10 max-w-xl">
-                        <span class="bg-pinkRed text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block">All-in-One Creator Toolkit</span>
-                        <h3 class="text-2xl md:text-4xl font-extrabold tracking-tight">Supercharge Your Content Creation</h3>
-                        <p class="text-slate-100 text-sm md:text-base leading-relaxed">
-                            Generate AI-style prompts, viral video hooks, engaging social captions, and organize your publishing calendar effortlessly with local storage persistence.
-                        </p>
-                        <div class="pt-2 flex flex-wrap gap-3">
-                            <button onclick="switchTab('prompt-generator')" class="bg-pinkRed hover:bg-pinkRed/90 text-white font-semibold px-5 py-2.5 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 text-sm flex items-center space-x-2">
-                                <i class="fa-solid fa-terminal"></i>
-                                <span>Try Prompt Generator</span>
-                            </button>
-                            <button onclick="switchTab('content-planner')" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-5 py-2.5 rounded-xl transition-all text-sm flex items-center space-x-2">
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <span>View Calendar</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="mt-6 md:mt-0 z-10 flex space-x-4">
-                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[110px]">
-                            <span id="stat-saved-count" class="text-3xl font-extrabold text-white">0</span>
-                            <p class="text-xs text-slate-200 mt-1 font-medium">Saved Items</p>
-                        </div>
-                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[110px]">
-                            <span id="stat-planner-count" class="text-3xl font-extrabold text-white">0</span>
-                            <p class="text-xs text-slate-200 mt-1 font-medium">Planned Tasks</p>
-                        </div>
+        <!-- Backdrop for mobile menu -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            
+            <!-- Page Header Bar -->
+            <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shadow-sm">
+                <div>
+                    <h2 id="current-page-title" class="text-xl font-bold text-navy">Dashboard Overview</h2>
+                    <p id="current-page-subtitle" class="text-xs text-slate-500">Welcome back! Manage your content workflows seamlessly.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="openReadmeModal()" class="hidden sm:flex items-center space-x-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg transition-colors border border-slate-200">
+                        <i class="fa-solid fa-circle-info text-brightBlue"></i>
+                        <span>Quick Guide</span>
+                    </button>
+                    <div class="bg-navy/10 text-navy font-bold text-xs px-3 py-2 rounded-xl flex items-center space-x-2">
+                        <i class="fa-solid fa-user-astronaut text-pinkRed"></i>
+                        <span class="hidden sm:inline">Creator Mode</span>
                     </div>
                 </div>
+            </header>
 
-                <!-- Quick Action Cards Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <div onclick="switchTab('prompt-generator')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-brightBlue/10 text-brightBlue flex items-center justify-center text-xl mb-4 group-hover:bg-brightBlue group-hover:text-white transition-colors">
-                                <i class="fa-solid fa-terminal"></i>
-                            </div>
-                            <h4 class="font-bold text-navy text-lg mb-1">Prompt Generator</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Create detailed AI art, video, and character prompts instantly.</p>
-                        </div>
-                        <div class="mt-6 flex items-center text-xs font-semibold text-brightBlue group-hover:translate-x-1 transition-transform">
-                            <span>Get Started</span>
-                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
+            <!-- Content Body Wrapper -->
+            <div class="p-6 max-w-7xl w-full mx-auto flex-1">
 
-                    <div onclick="switchTab('video-ideas')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-pinkRed/10 text-pinkRed flex items-center justify-center text-xl mb-4 group-hover:bg-pinkRed group-hover:text-white transition-colors">
-                                <i class="fa-solid fa-lightbulb"></i>
-                            </div>
-                            <h4 class="font-bold text-navy text-lg mb-1">Video Ideas</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Discover viral video concepts across multiple popular niches.</p>
-                        </div>
-                        <div class="mt-6 flex items-center text-xs font-semibold text-pinkRed group-hover:translate-x-1 transition-transform">
-                            <span>Explore Ideas</span>
-                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-
-                    <div onclick="switchTab('caption-maker')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-navy/10 text-navy flex items-center justify-center text-xl mb-4 group-hover:bg-navy group-hover:text-white transition-colors">
-                                <i class="fa-solid fa-pen-nib"></i>
-                            </div>
-                            <h4 class="font-bold text-navy text-lg mb-1">Caption Maker</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Draft engaging hooks, captions, CTAs, and optimized hashtags.</p>
-                        </div>
-                        <div class="mt-6 flex items-center text-xs font-semibold text-navy group-hover:translate-x-1 transition-transform">
-                            <span>Draft Captions</span>
-                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-
-                    <div onclick="switchTab('content-planner')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                                <i class="fa-solid fa-calendar-days"></i>
-                            </div>
-                            <h4 class="font-bold text-navy text-lg mb-1">Content Planner</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Track publishing schedules from initial idea to completion.</p>
-                        </div>
-                        <div class="mt-6 flex items-center text-xs font-semibold text-emerald-600 group-hover:translate-x-1 transition-transform">
-                            <span>Open Planner</span>
-                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recent Saved Preview -->
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="font-bold text-navy text-base flex items-center space-x-2">
-                            <i class="fa-solid fa-clock-rotate-left text-brightBlue"></i>
-                            <span>Recent Saved Vault Items</span>
-                        </h4>
-                        <button onclick="switchTab('saved-vault')" class="text-xs font-semibold text-brightBlue hover:underline">View All</button>
-                    </div>
-                    <div id="dashboard-recent-vault" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= TAB 2: PROMPT GENERATOR ================= -->
-            <section id="tab-prompt-generator" class="tab-content hidden space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Form Controls -->
-                    <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-                        <div class="border-b border-slate-100 pb-3">
-                            <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                <i class="fa-solid fa-terminal text-brightBlue"></i>
-                                <span>AI Prompt Generator</span>
-                            </h3>
-                            <p class="text-xs text-slate-500">Configure parameters to generate high-quality optimized prompts.</p>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Topic / Subject <span class="text-pinkRed">*</span></label>
-                                <input type="text" id="pg-topic" placeholder="e.g., Cyberpunk samurai cat walking in neon rain" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm">
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Prompt Type</label>
-                                    <select id="pg-type" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
-                                        <option value="Image">Image Generation</option>
-                                        <option value="Video">Video Script / Shot</option>
-                                        <option value="Character">Character Profile</option>
-                                        <option value="Scenery">Scenery & Environment</option>
-                                        <option value="Product">Product Showcase</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Visual Style</label>
-                                    <select id="pg-style" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
-                                        <option value="Cinematic">Cinematic 4K</option>
-                                        <option value="Cyberpunk">Cyberpunk Neon</option>
-                                        <option value="Anime">Anime / Studio Ghibli</option>
-                                        <option value="Photorealistic">Photorealistic</option>
-                                        <option value="Minimalist">Minimalist Clean</option>
-                                        <option value="Vintage">Vintage Retro 80s</option>
-                                        <option value="3D Render">3D Pixar Style</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Aspect Ratio</label>
-                                    <select id="pg-ratio" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
-                                        <option value="16:9 (Landscape)">16:9 (YouTube / Desktop)</option>
-                                        <option value="9:16 (Vertical)">9:16 (Shorts / Reels / TikTok)</option>
-                                        <option value="1:1 (Square)">1:1 (Instagram Post)</option>
-                                        <option value="4:5 (Portrait)">4:5 (Social Feed)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Mood & Lighting</label>
-                                    <select id="pg-mood" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
-                                        <option value="Dramatic & Moody">Dramatic & Moody</option>
-                                        <option value="Bright & Vibrant">Bright & Vibrant</option>
-                                        <option value="Warm Golden Hour">Warm Golden Hour</option>
-                                        <option value="Dark & Mysterious">Dark & Mysterious</option>
-                                        <option value="Soft & Dreamy">Soft & Dreamy</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Additional Details / Custom Tags</label>
-                                <input type="text" id="pg-details" placeholder="e.g., volumetric lighting, octane render, intricate details" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm">
-                            </div>
-
-                            <div class="pt-2 flex items-center space-x-3">
-                                <button onclick="generatePrompt()" class="flex-1 bg-navy hover:bg-navy/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center space-x-2">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                    <span>Generate Prompt</span>
+                <!-- TAB 1: DASHBOARD -->
+                <section id="tab-dashboard" class="tab-content space-y-6">
+                    <div class="bg-gradient-to-r from-navy to-brightBlue text-white rounded-3xl p-6 md:p-8 shadow-xl flex flex-col md:flex-row justify-between items-center relative overflow-hidden">
+                        <div class="space-y-3 z-10 max-w-xl">
+                            <span class="bg-pinkRed text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-block">All-in-One Creator Toolkit</span>
+                            <h3 class="text-2xl md:text-4xl font-extrabold tracking-tight">Supercharge Your Content Creation</h3>
+                            <p class="text-slate-100 text-sm md:text-base leading-relaxed">
+                                Generate AI-style prompts, viral video hooks, engaging social captions, and organize your publishing calendar effortlessly with local storage persistence.
+                            </p>
+                            <div class="pt-2 flex flex-wrap gap-3">
+                                <button onclick="switchTab('prompt-generator')" class="bg-pinkRed hover:bg-pinkRed/90 text-white font-semibold px-5 py-2.5 rounded-xl shadow-lg transition-all text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-terminal"></i>
+                                    <span>Try Prompt Generator</span>
                                 </button>
-                                <button onclick="clearPromptForm()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl transition-all text-sm">
-                                    Clear
+                                <button onclick="switchTab('content-planner')" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-5 py-2.5 rounded-xl transition-all text-sm flex items-center space-x-2">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <span>View Calendar</span>
                                 </button>
                             </div>
                         </div>
+                        <div class="mt-6 md:mt-0 z-10 flex space-x-4">
+                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[110px]">
+                                <span id="stat-saved-count" class="text-3xl font-extrabold text-white">0</span>
+                                <p class="text-xs text-slate-200 mt-1 font-medium">Saved Items</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[110px]">
+                                <span id="stat-planner-count" class="text-3xl font-extrabold text-white">0</span>
+                                <p class="text-xs text-slate-200 mt-1 font-medium">Planned Tasks</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Output Box -->
-                    <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                    <i class="fa-solid fa-code text-pinkRed"></i>
-                                    <span>Generated Prompt Result</span>
-                                </h3>
-                                <span class="text-xs bg-emerald-500/10 text-emerald-600 font-semibold px-2.5 py-1 rounded-full">Ready to Use</span>
-                            </div>
-                            <p class="text-xs text-slate-500">You can freely edit the generated text below before copying or saving to your vault.</p>
-                            
+                    <!-- Quick Action Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div onclick="switchTab('prompt-generator')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
                             <div>
-                                <textarea id="pg-output" rows="8" placeholder="Your generated prompt will appear here..." class="w-full p-4 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm font-mono text-slate-800 bg-slate-50 leading-relaxed custom-scrollbar"></textarea>
+                                <div class="w-12 h-12 rounded-xl bg-brightBlue/10 text-brightBlue flex items-center justify-center text-xl mb-4 group-hover:bg-brightBlue group-hover:text-white transition-colors"><i class="fa-solid fa-terminal"></i></div>
+                                <h4 class="font-bold text-navy text-lg mb-1">Prompt Generator</h4>
+                                <p class="text-slate-500 text-xs leading-relaxed">Create detailed AI art, video, and character prompts instantly.</p>
                             </div>
+                            <div class="mt-6 flex items-center text-xs font-semibold text-brightBlue"><span>Get Started</span> <i class="fa-solid fa-arrow-right ml-1.5"></i></div>
                         </div>
-
-                        <div class="pt-4 flex flex-wrap gap-3">
-                            <button onclick="copyPromptOutput()" class="flex-1 bg-brightBlue hover:bg-brightBlue/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center space-x-2">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Copy Prompt</span>
-                            </button>
-                            <button onclick="savePromptOutput()" class="flex-1 bg-pinkRed hover:bg-pinkRed/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-bookmark"></i>
-                                <span>Save to Vault</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= TAB 3: VIDEO IDEA GENERATOR ================= -->
-            <section id="tab-video-ideas" class="tab-content hidden space-y-6">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-                        <div>
-                            <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                <i class="fa-solid fa-lightbulb text-pinkRed"></i>
-                                <span>Video Idea Generator</span>
-                            </h3>
-                            <p class="text-xs text-slate-500">Pick a niche and instantly discover fresh viral concepts for your channel.</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <select id="vi-category" onchange="filterVideoIdeas()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-brightBlue">
-                                <option value="all">All Niches</option>
-                                <option value="Motivational">Motivational</option>
-                                <option value="Relaxing Nature">Relaxing Nature</option>
-                                <option value="AI Cartoons">AI Cartoons</option>
-                                <option value="Food & Cooking">Food & Cooking</option>
-                                <option value="Product Promos">Product Promotions</option>
-                                <option value="Short Stories">Short Stories</option>
-                            </select>
-                            <button onclick="randomizeVideoIdea()" class="bg-navy hover:bg-navy/90 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all flex items-center space-x-1.5 shadow">
-                                <i class="fa-solid fa-shuffle"></i>
-                                <span>Randomize Idea</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Ideas Grid -->
-                    <div id="video-ideas-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= TAB 4: SOCIAL MEDIA CAPTION MAKER ================= -->
-            <section id="tab-caption-maker" class="tab-content hidden space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Form Controls -->
-                    <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-                        <div class="border-b border-slate-100 pb-3">
-                            <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                <i class="fa-solid fa-pen-nib text-brightBlue"></i>
-                                <span>Caption & Hook Maker</span>
-                            </h3>
-                            <p class="text-xs text-slate-500">Generate hooks, captions, CTAs, and hashtags tailored for your platform.</p>
-                        </div>
-
-                        <div class="space-y-4">
+                        <div onclick="switchTab('video-ideas')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Content Topic <span class="text-pinkRed">*</span></label>
-                                <input type="text" id="cm-topic" placeholder="e.g., 5 morning habits that doubled my productivity" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm">
+                                <div class="w-12 h-12 rounded-xl bg-pinkRed/10 text-pinkRed flex items-center justify-center text-xl mb-4 group-hover:bg-pinkRed group-hover:text-white transition-colors"><i class="fa-solid fa-lightbulb"></i></div>
+                                <h4 class="font-bold text-navy text-lg mb-1">Video Ideas</h4>
+                                <p class="text-slate-500 text-xs leading-relaxed">Discover viral video concepts across multiple popular niches.</p>
                             </div>
-
+                            <div class="mt-6 flex items-center text-xs font-semibold text-pinkRed"><span>Explore Ideas</span> <i class="fa-solid fa-arrow-right ml-1.5"></i></div>
+                        </div>
+                        <div onclick="switchTab('caption-maker')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
                             <div>
-                                <label class="block text-xs font-semibold text-slate-700 mb-1">Target Platform</label>
-                                <select id="cm-platform" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
-                                    <option value="YouTube Shorts">YouTube Shorts</option>
-                                    <option value="Facebook Reels">Facebook Reels</option>
-                                    <option value="TikTok">TikTok</option>
-                                    <option value="Instagram">Instagram Feed / Reels</option>
-                                </select>
+                                <div class="w-12 h-12 rounded-xl bg-navy/10 text-navy flex items-center justify-center text-xl mb-4 group-hover:bg-navy group-hover:text-white transition-colors"><i class="fa-solid fa-pen-nib"></i></div>
+                                <h4 class="font-bold text-navy text-lg mb-1">Caption Maker</h4>
+                                <p class="text-slate-500 text-xs leading-relaxed">Draft engaging hooks, captions, CTAs, and optimized hashtags.</p>
                             </div>
-
-                            <button onclick="generateCaption()" class="w-full bg-navy hover:bg-navy/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                <span>Generate Caption Package</span>
-                            </button>
+                            <div class="mt-6 flex items-center text-xs font-semibold text-navy"><span>Draft Captions</span> <i class="fa-solid fa-arrow-right ml-1.5"></i></div>
+                        </div>
+                        <div onclick="switchTab('content-planner')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-slate-200 cursor-pointer group flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-500 group-hover:text-white transition-colors"><i class="fa-solid fa-calendar-days"></i></div>
+                                <h4 class="font-bold text-navy text-lg mb-1">Content Planner</h4>
+                                <p class="text-slate-500 text-xs leading-relaxed">Track publishing schedules from initial idea to completion.</p>
+                            </div>
+                            <div class="mt-6 flex items-center text-xs font-semibold text-emerald-600"><span>Open Planner</span> <i class="fa-solid fa-arrow-right ml-1.5"></i></div>
                         </div>
                     </div>
 
-                    <!-- Output Display -->
-                    <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
-                        <div>
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                    <i class="fa-solid fa-file-lines text-pinkRed"></i>
-                                    <span>Generated Package</span>
-                                </h3>
-                                <button onclick="copyCaptionPackage()" class="bg-brightBlue/10 hover:bg-brightBlue/20 text-brightBlue font-semibold text-xs px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1.5">
-                                    <i class="fa-regular fa-copy"></i>
-                                    <span>Copy All</span>
-                                </button>
-                            </div>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-bold text-navy text-base flex items-center space-x-2">
+                                <i class="fa-solid fa-clock-rotate-left text-brightBlue"></i>
+                                <span>Recent Saved Vault Items</span>
+                            </h4>
+                            <button onclick="switchTab('saved-vault')" class="text-xs font-semibold text-brightBlue hover:underline">View All</button>
+                        </div>
+                        <div id="dashboard-recent-vault" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+                    </div>
+                </section>
 
-                            <div id="cm-output-container" class="space-y-4 text-sm text-slate-700">
-                                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                                    <p class="text-xs font-bold text-navy uppercase tracking-wider mb-1"><i class="fa-solid fa-anchor text-brightBlue mr-1"></i> Viral Hook</p>
-                                    <p id="cm-out-hook" class="text-slate-600 italic">Enter a topic and generate to see results...</p>
-                                </div>
-                                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                                    <p class="text-xs font-bold text-navy uppercase tracking-wider mb-1"><i class="fa-solid align-middle fa-align-left text-brightBlue mr-1"></i> Main Caption</p>
-                                    <p id="cm-out-body" class="text-slate-600">Enter a topic and generate to see results...</p>
+                <!-- TAB 2: PROMPT GENERATOR -->
+                <section id="tab-prompt-generator" class="tab-content hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                            <div class="border-b border-slate-100 pb-3">
+                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-terminal text-brightBlue"></i><span>AI Prompt Generator</span></h3>
+                                <p class="text-xs text-slate-500">Configure parameters to generate high-quality optimized prompts.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Topic / Subject *</label>
+                                    <input type="text" id="pg-topic" placeholder="e.g., Cyberpunk samurai cat walking in neon rain" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm">
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                                        <p class="text-xs font-bold text-navy uppercase tracking-wider mb-1"><i class="fa-solid fa-bullhorn text-brightBlue mr-1"></i> Call to Action</p>
-                                        <p id="cm-out-cta" class="text-slate-600">Enter a topic and generate to see results...</p>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Prompt Type</label>
+                                        <select id="pg-type" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                            <option value="Image">Image Generation</option>
+                                            <option value="Video">Video Script / Shot</option>
+                                            <option value="Character">Character Profile</option>
+                                            <option value="Scenery">Scenery & Environment</option>
+                                            <option value="Product">Product Showcase</option>
+                                        </select>
                                     </div>
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                                        <p class="text-xs font-bold text-navy uppercase tracking-wider mb-1"><i class="fa-solid fa-hashtag text-brightBlue mr-1"></i> Hashtags</p>
-                                        <p id="cm-out-tags" class="text-brightBlue font-medium">#CreatorKit #ContentCreator</p>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Visual Style</label>
+                                        <select id="pg-style" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                            <option value="Cinematic">Cinematic 4K</option>
+                                            <option value="Cyberpunk">Cyberpunk Neon</option>
+                                            <option value="Anime">Anime / Studio Ghibli</option>
+                                            <option value="Photorealistic">Photorealistic</option>
+                                            <option value="Minimalist">Minimalist Clean</option>
+                                            <option value="Vintage">Vintage Retro 80s</option>
+                                            <option value="3D Render">3D Pixar Style</option>
+                                        </select>
                                     </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Aspect Ratio</label>
+                                        <select id="pg-ratio" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                            <option value="16:9 (Landscape)">16:9 (YouTube / Desktop)</option>
+                                            <option value="9:16 (Vertical)">9:16 (Shorts / Reels / TikTok)</option>
+                                            <option value="1:1 (Square)">1:1 (Instagram Post)</option>
+                                            <option value="4:5 (Portrait)">4:5 (Social Feed)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-700 mb-1">Mood & Lighting</label>
+                                        <select id="pg-mood" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                            <option value="Dramatic & Moody">Dramatic & Moody</option>
+                                            <option value="Bright & Vibrant">Bright & Vibrant</option>
+                                            <option value="Warm Golden Hour">Warm Golden Hour</option>
+                                            <option value="Dark & Mysterious">Dark & Mysterious</option>
+                                            <option value="Soft & Dreamy">Soft & Dreamy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Additional Details / Custom Tags</label>
+                                    <input type="text" id="pg-details" placeholder="e.g., volumetric lighting, octane render" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                                </div>
+                                <div class="pt-2 flex items-center space-x-3">
+                                    <button onclick="generatePrompt()" class="flex-1 bg-navy hover:bg-navy/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow text-sm flex items-center justify-center space-x-2"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Generate Prompt</span></button>
+                                    <button onclick="clearPromptForm()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 px-4 rounded-xl text-sm">Clear</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="pt-2">
-                            <button onclick="saveCaptionToVault()" class="w-full bg-pinkRed hover:bg-pinkRed/90 text-white font-semibold py-2.5 px-4 rounded-xl shadow transition-all text-sm flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-bookmark"></i>
-                                <span>Save Package to Vault</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= TAB 5: SAVED VAULT ================= -->
-            <section id="tab-saved-vault" class="tab-content hidden space-y-6">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-                        <div>
-                            <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                <i class="fa-solid fa-bookmark text-pinkRed"></i>
-                                <span>Saved Ideas & Prompts Vault</span>
-                            </h3>
-                            <p class="text-xs text-slate-500">All your bookmarked prompts, video concepts, and captions stored locally.</p>
-                        </div>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <div class="relative">
-                                <i class="fa-solid fa-search absolute left-3.5 top-3 text-slate-400 text-xs"></i>
-                                <input type="text" id="vault-search" oninput="renderVault()" placeholder="Search vault items..." class="pl-9 pr-4 py-2 rounded-xl border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-brightBlue w-full sm:w-64">
+                        <div class="lg:col-span-6 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                    <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-code text-pinkRed"></i><span>Generated Prompt Result</span></h3>
+                                    <span class="text-xs bg-emerald-500/10 text-emerald-600 font-semibold px-2.5 py-1 rounded-full">Ready</span>
+                                </div>
+                                <textarea id="pg-output" rows="8" placeholder="Your generated prompt will appear here..." class="w-full p-4 rounded-xl border border-slate-300 text-sm font-mono text-slate-800 bg-slate-50"></textarea>
                             </div>
-                            <select id="vault-filter" onchange="renderVault()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-brightBlue">
-                                <option value="all">All Categories</option>
-                                <option value="Prompt">Prompts</option>
-                                <option value="Video Idea">Video Ideas</option>
-                                <option value="Caption">Captions</option>
-                            </select>
+                            <div class="pt-4 flex flex-wrap gap-3">
+                                <button onclick="copyPromptOutput()" class="flex-1 bg-brightBlue hover:bg-brightBlue/90 text-white font-semibold py-2.5 px-4 rounded-xl text-sm flex items-center justify-center space-x-2"><i class="fa-regular fa-copy"></i><span>Copy Prompt</span></button>
+                                <button onclick="savePromptOutput()" class="flex-1 bg-pinkRed hover:bg-pinkRed/90 text-white font-semibold py-2.5 px-4 rounded-xl text-sm flex items-center justify-center space-x-2"><i class="fa-solid fa-bookmark"></i><span>Save to Vault</span></button>
+                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <!-- Vault Grid -->
-                    <div id="vault-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- ================= TAB 6: CONTENT PLANNER ================= -->
-            <section id="tab-content-planner" class="tab-content hidden space-y-6">
-                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-                        <div>
-                            <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                                <i class="fa-solid fa-calendar-days text-emerald-600"></i>
-                               <span>Content Publishing Planner</span>
-                            </h3>
-                            <p class="text-xs text-slate-500">Plan and track your publishing pipeline from Idea to Completed.</p>
+                <!-- TAB 3: VIDEO IDEA GENERATOR -->
+                <section id="tab-video-ideas" class="tab-content hidden space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-lightbulb text-pinkRed"></i><span>Video Idea Generator</span></h3>
+                                <p class="text-xs text-slate-500">Pick a niche and instantly discover fresh viral concepts.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <select id="vi-category" onchange="filterVideoIdeas()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold bg-white">
+                                    <option value="all">All Niches</option>
+                                    <option value="Motivational">Motivational</option>
+                                    <option value="Relaxing Nature">Relaxing Nature</option>
+                                    <option value="AI Cartoons">AI Cartoons</option>
+                                    <option value="Food & Cooking">Food & Cooking</option>
+                                    <option value="Product Promos">Product Promotions</option>
+                                    <option value="Short Stories">Short Stories</option>
+                                </select>
+                            </div>
                         </div>
-                        <button onclick="openPlannerModal('add')" class="bg-navy hover:bg-navy/90 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition-all shadow flex items-center space-x-2">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Add Content Task</span>
-                        </button>
+                        <div id="video-ideas-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-6"></div>
                     </div>
+                </section>
 
-                    <!-- Filter Bar -->
-                    <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="text-xs font-semibold text-slate-700">Filter Status:</span>
-                            <button onclick="filterPlannerStatus('all')" id="filter-status-all" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-navy text-white transition-all">All</button>
-                            <button onclick="filterPlannerStatus('Idea')" id="filter-status-Idea" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">Idea</button>
-                            <button onclick="filterPlannerStatus('In Progress')" id="filter-status-In Progress" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">In Progress</button>
-                            <button onclick="filterPlannerStatus('Completed')" id="filter-status-Completed" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all">Completed</button>
+                <!-- TAB 4: CAPTION MAKER -->
+                <section id="tab-caption-maker" class="tab-content hidden space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                            <div class="border-b border-slate-100 pb-3">
+                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-pen-nib text-brightBlue"></i><span>Caption & Hook Maker</span></h3>
+                                <p class="text-xs text-slate-500">Generate hooks, captions, CTAs, and hashtags tailored for your platform.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Content Topic *</label>
+                                    <input type="text" id="cm-topic" placeholder="e.g., 5 morning habits that doubled productivity" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">Target Platform</label>
+                                    <select id="cm-platform" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                        <option value="YouTube Shorts">YouTube Shorts</option>
+                                        <option value="Facebook Reels">Facebook Reels</option>
+                                        <option value="TikTok">TikTok</option>
+                                        <option value="Instagram">Instagram Feed / Reels</option>
+                                    </select>
+                                </div>
+                                <button onclick="generateCaption()" class="w-full bg-navy hover:bg-navy/90 text-white font-semibold py-2.5 px-4 rounded-xl text-sm flex items-center justify-center space-x-2"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Generate Caption Package</span></button>
+                            </div>
                         </div>
-                        <div class="text-xs text-slate-500 font-medium">
-                            Total Tasks: <span id="planner-total-count" class="font-bold text-navy">0</span>
+
+                        <div class="lg:col-span-7 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4">
+                            <div>
+                                <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                                    <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-file-lines text-pinkRed"></i><span>Generated Package</span></h3>
+                                    <button onclick="copyCaptionPackage()" class="bg-brightBlue/10 hover:bg-brightBlue/20 text-brightBlue font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center space-x-1.5"><i class="fa-regular fa-copy"></i><span>Copy All</span></button>
+                                </div>
+                                <div id="cm-output-container" class="space-y-4 text-sm text-slate-700">
+                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                        <p class="text-xs font-bold text-navy uppercase mb-1"><i class="fa-solid fa-anchor text-brightBlue mr-1"></i> Viral Hook</p>
+                                        <p id="cm-out-hook" class="text-slate-600 italic">Enter a topic and generate...</p>
+                                    </div>
+                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                        <p class="text-xs font-bold text-navy uppercase mb-1"><i class="fa-solid fa-align-left text-brightBlue mr-1"></i> Main Caption</p>
+                                        <p id="cm-out-body" class="text-slate-600">Enter a topic and generate...</p>
+                                    </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                            <p class="text-xs font-bold text-navy uppercase mb-1"><i class="fa-solid fa-bullhorn text-brightBlue mr-1"></i> Call to Action</p>
+                                            <p id="cm-out-cta" class="text-slate-600">Enter a topic and generate...</p>
+                                        </div>
+                                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                            <p class="text-xs font-bold text-navy uppercase mb-1"><i class="fa-solid fa-hashtag text-brightBlue mr-1"></i> Hashtags</p>
+                                            <p id="cm-out-tags" class="text-brightBlue font-medium">#CreatorKit</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-2">
+                                <button onclick="saveCaptionToVault()" class="w-full bg-pinkRed hover:bg-pinkRed/90 text-white font-semibold py-2.5 px-4 rounded-xl text-sm flex items-center justify-center space-x-2"><i class="fa-solid fa-bookmark"></i><span>Save Package to Vault</span></button>
+                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <!-- Planner Table / Cards -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                    <th class="py-3 px-4">Title</th>
-                                    <th class="py-3 px-4">Platform</th>
-                                    <th class="py-3 px-4">Publish Date</th>
-                                    <th class="py-3 px-4">Status</th>
-                                    <th class="py-3 px-4 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="planner-table-body" class="divide-y divide-slate-100 text-sm">
-                                <!-- Populated by JS -->
-                            </tbody>
-                        </table>
+                <!-- TAB 5: SAVED VAULT -->
+                <section id="tab-saved-vault" class="tab-content hidden space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-bookmark text-pinkRed"></i><span>Saved Ideas & Prompts Vault</span></h3>
+                                <p class="text-xs text-slate-500">All your bookmarked prompts, video concepts, and captions stored locally.</p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="vault-search" oninput="renderVault()" placeholder="Search vault..." class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs">
+                                <select id="vault-filter" onchange="renderVault()" class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold bg-white">
+                                    <option value="all">All Categories</option>
+                                    <option value="Prompt">Prompts</option>
+                                    <option value="Video Idea">Video Ideas</option>
+                                    <option value="Caption">Captions</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="vault-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
-    </main>
+                <!-- TAB 6: CONTENT PLANNER -->
+                <section id="tab-content-planner" class="tab-content hidden space-y-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 class="font-bold text-navy text-lg flex items-center space-x-2"><i class="fa-solid fa-calendar-days text-emerald-600"></i><span>Content Publishing Planner</span></h3>
+                                <p class="text-xs text-slate-500">Plan and track your publishing pipeline.</p>
+                            </div>
+                            <button onclick="openPlannerModal('add')" class="bg-navy hover:bg-navy/90 text-white font-semibold text-xs px-4 py-2.5 rounded-xl flex items-center space-x-2"><i class="fa-solid fa-plus"></i><span>Add Content Task</span></button>
+                        </div>
+                        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-semibold text-slate-700">Filter Status:</span>
+                                <button onclick="filterPlannerStatus('all')" id="filter-status-all" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-navy text-white">All</button>
+                                <button onclick="filterPlannerStatus('Idea')" id="filter-status-Idea" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200">Idea</button>
+                                <button onclick="filterPlannerStatus('In Progress')" id="filter-status-In Progress" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200">In Progress</button>
+                                <button onclick="filterPlannerStatus('Completed')" id="filter-status-Completed" class="planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200">Completed</button>
+                            </div>
+                            <div class="text-xs text-slate-500 font-medium">Total Tasks: <span id="planner-total-count" class="font-bold text-navy">0</span></div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="border-b border-slate-200 text-xs font-bold text-slate-500 uppercase">
+                                        <th class="py-3 px-4">Title</th>
+                                        <th class="py-3 px-4">Platform</th>
+                                        <th class="py-3 px-4">Publish Date</th>
+                                        <th class="py-3 px-4">Status</th>
+                                        <th class="py-3 px-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="planner-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
 
-    <!-- ================= MODALS ================= -->
-
-    <!-- README / Quick Guide Modal -->
+    <!-- Modals -->
     <div id="readme-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-4 relative animate-in fade-in duration-200">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="font-bold text-navy text-lg flex items-center space-x-2">
-                    <i class="fa-solid fa-circle-info text-brightBlue"></i>
-                    <span>README.txt & Quick Guide</span>
-                </h3>
-                <button onclick="closeReadmeModal()" class="text-slate-400 hover:text-slate-700 text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <h3 class="font-bold text-navy text-lg"><i class="fa-solid fa-circle-info text-brightBlue mr-2"></i>Quick Guide</h3>
+                <button onclick="closeReadmeModal()" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="space-y-3 text-sm text-slate-600 leading-relaxed max-h-[60vh] overflow-y-auto custom-scrollbar pr-2">
-                <p>Welcome to <strong class="text-navy">CreatorKit</strong> — your all-in-one local-first content creation suite designed for YouTubers, Reels creators, TikTokers, and AI artists.</p>
-                
-                <h4 class="font-bold text-navy mt-2">Features Included:</h4>
-                <ul class="list-disc pl-5 space-y-1 text-xs">
-                    <li><strong>Prompt Generator:</strong> Create AI art, video, and character prompts using smart templates. Fully editable with copy & save actions.</li>
-                    <li><strong>Video Idea Generator:</strong> Explore random viral video concepts across motivational, nature, AI cartoons, food, and promotions.</li>
-                    <li><strong>Caption Maker:</strong> Generate tailored hooks, captions, CTAs, and hashtags for Shorts, Reels, TikTok, and Instagram.</li>
-                    <li><strong>Saved Vault:</strong> Store prompts, ideas, and captions in browser `localStorage` with search and delete functions.</li>
-                    <li><strong>Content Planner:</strong> Manage your publishing schedule, status (Idea, In Progress, Completed), and dates.</li>
-                </ul>
-
-                <h4 class="font-bold text-navy mt-2">How to Run:</h4>
-                <p class="text-xs">Simply save this file as <code>CreatorKit.html</code> and open it directly in any modern web browser. No server or database required!</p>
-            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">CreatorKit is your all-in-one local-first content creation suite. Use the top navigation bar to jump back to any ecosystem app at any time!</p>
             <div class="pt-4 border-t border-slate-100 flex justify-end">
-                <button onclick="closeReadmeModal()" class="bg-navy hover:bg-navy/90 text-white font-semibold text-xs px-5 py-2.5 rounded-xl transition-all">
-                    Got It, Let's Create!
-                </button>
+                <button onclick="closeReadmeModal()" class="bg-navy text-white text-xs px-5 py-2 rounded-xl">Got It</button>
             </div>
         </div>
     </div>
@@ -592,79 +461,59 @@
         <div class="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 id="planner-modal-title" class="font-bold text-navy text-lg">Add Content Task</h3>
-                <button onclick="closePlannerModal()" class="text-slate-400 hover:text-slate-700 text-lg">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <button onclick="closePlannerModal()" class="text-slate-400 hover:text-slate-700 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="planner-form" onsubmit="handlePlannerSubmit(event)" class="space-y-4">
                 <input type="hidden" id="planner-edit-id">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Content Title <span class="text-pinkRed">*</span></label>
-                    <input type="text" id="pl-title" required placeholder="e.g., Top 10 AI tools for creators" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Content Title *</label>
+                    <input type="text" id="pl-title" required placeholder="e.g., Top 10 AI tools" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Platform</label>
-                    <select id="pl-platform" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
+                    <select id="pl-platform" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
                         <option value="YouTube">YouTube</option>
                         <option value="YouTube Shorts">YouTube Shorts</option>
                         <option value="Facebook Reels">Facebook Reels</option>
                         <option value="TikTok">TikTok</option>
                         <option value="Instagram">Instagram</option>
-                        <option value="Blog / Website">Blog / Website</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Publishing Date <span class="text-pinkRed">*</span></label>
-                    <input type="date" id="pl-date" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Publishing Date *</label>
+                    <input type="date" id="pl-date" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Status</label>
-                    <select id="pl-status" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brightBlue text-sm bg-white">
+                    <select id="pl-status" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white">
                         <option value="Idea">Idea</option>
                         <option value="In Progress">In Progress</option>
                         <option value="Completed">Completed</option>
                     </select>
                 </div>
                 <div class="pt-4 border-t border-slate-100 flex items-center justify-end space-x-3">
-                    <button type="button" onclick="closePlannerModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs px-4 py-2.5 rounded-xl transition-all">Cancel</button>
-                    <button type="submit" class="bg-navy hover:bg-navy/90 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow transition-all">Save Task</button>
+                    <button type="button" onclick="closePlannerModal()" class="bg-slate-100 text-slate-700 text-xs px-4 py-2.5 rounded-xl">Cancel</button>
+                    <button type="submit" class="bg-navy text-white text-xs px-5 py-2.5 rounded-xl">Save Task</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- ================= JAVASCRIPT ================= -->
+    <!-- Script logic -->
     <script>
-        // --- State & Storage Initialization ---
-        let vaultItems = JSON.parse(localStorage.getItem('creatorKit_vault')) || [
-            { id: 1, category: 'Prompt', title: 'Cyberpunk Cityscape', content: 'Cinematic 4K shot of a cyberpunk city in neon rain, volumetric lighting, intricate details, 16:9 aspect ratio.', date: '2026-03-20' },
-            { id: 2, category: 'Video Idea', title: '5 Morning Habits', content: 'Motivational reel about waking up at 5 AM and the compound effect on productivity.', date: '2026-03-21' }
-        ];
-
-        let plannerTasks = JSON.parse(localStorage.getItem('creatorKit_planner')) || [
-            { id: 1, title: 'Top 5 AI Video Generators Reviewed', platform: 'YouTube', date: '2026-04-01', status: 'In Progress' },
-            { id: 2, title: 'Relaxing Rain Sounds for Focus', platform: 'YouTube Shorts', date: '2026-04-03', status: 'Idea' }
-        ];
-
+        let vaultItems = JSON.parse(localStorage.getItem('creatorKit_vault')) || [];
+        let plannerTasks = JSON.parse(localStorage.getItem('creatorKit_planner')) || [];
         let currentPlannerFilter = 'all';
 
-        // Sample video ideas database
         const sampleVideoIdeas = [
-            { category: 'Motivational', title: 'The 1% Rule: How Small Daily Habits Compound', description: 'Break down how tiny 1% improvements daily lead to massive success over one year with engaging B-roll.' },
-            { category: 'Motivational', title: 'Stop Waiting for Motivation (Do This Instead)', description: 'A direct-to-camera pep talk about discipline versus fleeting motivation for ambitious creators.' },
-            { category: 'Relaxing Nature', title: 'Cozy Cabin in the Pine Forest with Gentle Rain (4K Ambient)', description: 'Immersive ambient relaxation video featuring soft rain sounds and cozy hearth crackles.' },
-            { category: 'Relaxing Nature', title: 'Midnight Ocean Waves for Deep Sleep and Focus', description: 'Calming waves crashing on a serene beach under starlight with binaural sound design.' },
-            { category: 'AI Cartoons', title: 'The Time-Traveling Cat Who Saved History', description: 'A whimsical animated short story about a curious feline exploring ancient civilizations.' },
-            { category: 'AI Cartoons', title: 'When Animals Learn to Code', description: 'Humorous AI-generated cartoon about forest animals building their own social media app.' },
-            { category: 'Food & Cooking', title: '3-Ingredient 5-Minute Chocolate Lava Cake', description: 'A mouth-watering quick recipe tutorial optimized for high-retention short-form video.' },
-            { category: 'Food & Cooking', title: 'Street Food Secrets Made at Home', description: 'Recreating famous night-market street foods with step-by-step close-up shots.' },
-            { category: 'Product Promos', title: 'Unboxing the Ultimate Creator Desk Setup', description: 'Aesthetic ASMR unboxing and review of minimalist desk accessories and lighting.' },
-            { category: 'Product Promos', title: 'Why Every Creator Needs This Portable Ring Light', description: 'Fast-paced product demonstration highlighting before-and-after lighting quality.' },
-            { category: 'Short Stories', title: 'The Last Train Station at the Edge of the Galaxy', description: 'A cinematic science fiction micro-story about a cosmic conductor waiting for his final passenger.' },
-            { category: 'Short Stories', title: 'The Bookstore Where Every Book is Your Future', description: 'An emotional narrative short story exploring choices, destiny, and alternate timelines.' }
+            { category: 'Motivational', title: 'The 1% Rule: How Small Daily Habits Compound', description: 'Break down how tiny 1% improvements daily lead to massive success.' },
+            { category: 'Relaxing Nature', title: 'Cozy Cabin in the Pine Forest with Gentle Rain', description: 'Immersive ambient relaxation video featuring soft rain sounds.' },
+            { category: 'AI Cartoons', title: 'The Time-Traveling Cat Who Saved History', description: 'A whimsical animated short story about a curious feline.' },
+            { category: 'Food & Cooking', title: '3-Ingredient 5-Minute Chocolate Lava Cake', description: 'Quick recipe tutorial optimized for high retention.' },
+            { category: 'Product Promos', title: 'Unboxing the Ultimate Creator Desk Setup', description: 'Aesthetic ASMR unboxing and review.' },
+            { category: 'Short Stories', title: 'The Last Train Station at the Edge of the Galaxy', description: 'Sci-fi micro-story about a cosmic conductor.' }
         ];
 
-        // --- Navigation & UI Handlers ---
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const sidebar = document.getElementById('sidebar');
         const sidebarBackdrop = document.getElementById('sidebar-backdrop');
@@ -680,549 +529,164 @@
         });
 
         function switchTab(tabId) {
-            // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            // Show target tab
-            const target = document.getElementById(`tab-${tabId}`);
-            if (target) target.classList.remove('hidden');
-
-            // Update sidebar active states
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('bg-brightBlue/20', 'text-white', 'border-l-4', 'border-pinkRed');
                 link.classList.add('text-slate-300', 'hover:bg-white/10', 'hover:text-white');
             });
-
-            // Find matching nav link
             event?.currentTarget?.classList?.add('bg-brightBlue/20', 'text-white', 'border-l-4', 'border-pinkRed');
-            event?.currentTarget?.classList?.remove('text-slate-300', 'hover:bg-white/10', 'hover:text-white');
-
-            // Close mobile menu if open
             sidebar.classList.add('-translate-x-full');
             sidebarBackdrop.classList.add('hidden');
-
-            // Update header titles & render data
-            updateHeaderTitles(tabId);
             if (tabId === 'dashboard') renderDashboard();
             if (tabId === 'video-ideas') renderVideoIdeas();
             if (tabId === 'saved-vault') renderVault();
             if (tabId === 'content-planner') renderPlanner();
-
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function updateHeaderTitles(tabId) {
-            const titles = {
-                'dashboard': { title: 'Dashboard Overview', subtitle: 'Welcome back! Manage your content workflows seamlessly.' },
-                'prompt-generator': { title: 'AI Prompt Generator', subtitle: 'Craft highly detailed prompts for images, videos, and characters.' },
-                'video-ideas': { title: 'Video Idea Generator', subtitle: 'Discover viral content concepts across popular niches instantly.' },
-                'caption-maker': { title: 'Social Media Caption Maker', subtitle: 'Generate viral hooks, captions, CTAs, and hashtags.' },
-                'saved-vault': { title: 'Saved Vault', subtitle: 'Access, search, copy, and manage your saved ideas and prompts.' },
-                'content-planner': { title: 'Content Planner', subtitle: 'Organize your publishing schedule from initial idea to completed.' }
-            };
-            document.getElementById('current-page-title').innerText = titles[tabId]?.title || 'Dashboard';
-            document.getElementById('current-page-subtitle').innerText = titles[tabId]?.subtitle || '';
-        }
-
-        // --- Toast Notification System ---
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            
-            const bgColor = type === 'success' ? 'bg-navy text-white' : 'bg-pinkRed text-white';
-            const icon = type === 'success' ? 'fa-circle-check text-emerald-400' : 'fa-triangle-exclamation text-white';
-
-            toast.className = `${bgColor} px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-xs font-medium transform translate-y-5 opacity-0 transition-all duration-300 pointer-events-auto`;
-            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i><span>${message}</span>`;
-            
+            toast.className = `bg-navy text-white px-4 py-3 rounded-xl shadow-xl flex items-center space-x-3 text-xs font-medium`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i><span>${message}</span>`;
             container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.remove('translate-y-5', 'opacity-0');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('translate-y-5', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        // --- Feature 1: Prompt Generator ---
         function generatePrompt() {
             const topic = document.getElementById('pg-topic').value.trim();
-            if (!topic) {
-                showToast('Please enter a topic or subject!', 'error');
-                document.getElementById('pg-topic').focus();
-                return;
-            }
-
+            if (!topic) { showToast('Please enter a topic!', 'error'); return; }
             const type = document.getElementById('pg-type').value;
             const style = document.getElementById('pg-style').value;
             const ratio = document.getElementById('pg-ratio').value;
             const mood = document.getElementById('pg-mood').value;
             const details = document.getElementById('pg-details').value.trim();
-
-            let template = '';
-            if (type === 'Image') {
-                template = `High-resolution ${style.toLowerCase()} image of ${topic}. Lighting: ${mood.toLowerCase()}. Aspect ratio: ${ratio}. ${details ? 'Additional details: ' + details + '.' : ''} Masterpiece, highly detailed, sharp focus.`;
-            } else if (type === 'Video') {
-                template = `Cinematic video shot concept for "${topic}". Visual style: ${style}. Atmosphere: ${mood}. Format: ${ratio}. ${details ? 'Key action/details: ' + details + '.' : ''} Smooth camera movement, professional color grading, engaging pacing.`;
-            } else if (type === 'Character') {
-                template = `Character concept design: ${topic}. Style: ${style}. Mood: ${mood}. ${details ? 'Distinctive features & costume: ' + details + '.' : ''} Highly detailed character sheet, expressive features, dramatic lighting.`;
-            } else if (type === 'Scenery') {
-                template = `Breathtaking environment scenery of ${topic}. Style: ${style}. Lighting: ${mood}. Aspect ratio: ${ratio}. ${details ? 'Environment elements: ' + details + '.' : ''} Immersive depth, cinematic composition.`;
-            } else {
-                template = `Professional product showcase for ${topic}. Style: ${style}. Lighting: ${mood}. Format: ${ratio}. ${details ? 'Branding & setting: ' + details + '.' : ''} Commercial grade studio lighting, clean background, pristine clarity.`;
-            }
-
-            document.getElementById('pg-output').value = template;
-            showToast('Prompt generated successfully!');
+            const prompt = `High-resolution ${style.toLowerCase()} ${type.toLowerCase()} of ${topic}. Lighting: ${mood}. Format: ${ratio}. ${details ? 'Details: ' + details + '.' : ''}`;
+            document.getElementById('pg-output').value = prompt;
+            showToast('Prompt generated!');
         }
 
         function clearPromptForm() {
             document.getElementById('pg-topic').value = '';
             document.getElementById('pg-details').value = '';
             document.getElementById('pg-output').value = '';
-            showToast('Prompt form cleared.');
+            showToast('Form cleared.');
         }
 
         function copyPromptOutput() {
-            const output = document.getElementById('pg-output').value;
-            if (!output) {
-                showToast('No prompt to copy!', 'error');
-                return;
-            }
-            navigator.clipboard.writeText(output).then(() => {
-                showToast('Prompt copied to clipboard!');
-            }).catch(() => {
-                const textarea = document.createElement('textarea');
-                textarea.value = output;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                textarea.remove();
-                showToast('Prompt copied to clipboard!');
-            });
+            navigator.clipboard.writeText(document.getElementById('pg-output').value);
+            showToast('Copied to clipboard!');
         }
 
         function savePromptOutput() {
-            const output = document.getElementById('pg-output').value;
-            const topic = document.getElementById('pg-topic').value.trim() || 'Custom Prompt';
-            if (!output) {
-                showToast('No prompt to save!', 'error');
-                return;
-            }
-
-            const newItem = {
-                id: Date.now(),
-                category: 'Prompt',
-                title: topic.length > 30 ? topic.substring(0, 30) + '...' : topic,
-                content: output,
-                date: new Date().toISOString().split('T')[0]
-            };
-
-            vaultItems.unshift(newItem);
+            const content = document.getElementById('pg-output').value;
+            if (!content) { showToast('Nothing to save!', 'error'); return; }
+            vaultItems.unshift({ id: Date.now(), category: 'Prompt', title: document.getElementById('pg-topic').value || 'Prompt', content, date: new Date().toISOString().split('T')[0] });
             localStorage.setItem('creatorKit_vault', JSON.stringify(vaultItems));
             updateVaultBadge();
-            showToast('Prompt saved to Saved Vault!');
+            showToast('Saved to Vault!');
         }
 
-        // --- Feature 2: Video Idea Generator ---
         function renderVideoIdeas() {
             const category = document.getElementById('vi-category').value;
             const grid = document.getElementById('video-ideas-grid');
-            
-            const filtered = category === 'all' 
-                ? sampleVideoIdeas 
-                : sampleVideoIdeas.filter(item => item.category === category);
-
-            grid.innerHTML = filtered.map((item, index) => `
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:shadow-md transition-all">
+            const filtered = category === 'all' ? sampleVideoIdeas : sampleVideoIdeas.filter(i => i.category === category);
+            grid.innerHTML = filtered.map((item, idx) => `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="bg-brightBlue/10 text-brightBlue text-xs font-bold px-2.5 py-1 rounded-full">${item.category}</span>
-                            <span class="text-xs text-slate-400 font-medium">Idea #${index + 1}</span>
-                        </div>
-                        <h4 class="font-bold text-navy text-base mb-2">${item.title}</h4>
-                        <textarea id="vi-desc-${index}" class="w-full text-xs text-slate-600 bg-white border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-1 focus:ring-brightBlue resize-y" rows="3">${item.description}</textarea>
+                        <span class="bg-brightBlue/10 text-brightBlue text-xs font-bold px-2.5 py-1 rounded-full">${item.category}</span>
+                        <h4 class="font-bold text-navy text-base mt-2 mb-1">${item.title}</h4>
+                        <textarea id="vi-desc-${idx}" class="w-full text-xs text-slate-600 bg-white border border-slate-200 rounded-xl p-2.5" rows="2">${item.description}</textarea>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
-                        <button onclick="copyVideoIdea(${index})" class="text-xs font-semibold text-brightBlue hover:underline flex items-center space-x-1">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Copy Idea</span>
-                        </button>
-                        <button onclick="saveVideoIdeaToVault('${item.title.replace(/'/g, "\\'")}', 'vi-desc-${index}')" class="bg-pinkRed hover:bg-pinkRed/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1 shadow">
-                            <i class="fa-solid fa-bookmark"></i>
-                            <span>Save to Vault</span>
-                        </button>
+                    <div class="mt-4 pt-3 border-t border-slate-200 flex justify-between">
+                        <button onclick="navigator.clipboard.writeText(document.getElementById('vi-desc-${idx}').value); showToast('Copied!');" class="text-xs text-brightBlue font-semibold">Copy</button>
+                        <button onclick="saveVideoIdeaToVault('${item.title}', 'vi-desc-${idx}')" class="bg-pinkRed text-white text-xs px-3 py-1.5 rounded-lg">Save to Vault</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function filterVideoIdeas() {
-            renderVideoIdeas();
-        }
-
-        function randomizeVideoIdea() {
-            const random = sampleVideoIdeas[Math.floor(Math.random() * sampleVideoIdeas.length)];
-            showToast(`Random Idea: "${random.title}"`);
-        }
-
-        function copyVideoIdea(index) {
-            const desc = document.getElementById(`vi-desc-${index}`).value;
-            navigator.clipboard.writeText(desc).then(() => {
-                showToast('Video idea description copied!');
-            });
-        }
-
-        function saveVideoIdeaToVault(title, textareaId) {
-            const content = document.getElementById(textareaId).value;
-            const newItem = {
-                id: Date.now(),
-                category: 'Video Idea',
-                title: title,
-                content: content,
-                date: new Date().toISOString().split('T')[0]
-            };
-
-            vaultItems.unshift(newItem);
+        function saveVideoIdeaToVault(title, id) {
+            vaultItems.unshift({ id: Date.now(), category: 'Video Idea', title, content: document.getElementById(id).value, date: new Date().toISOString().split('T')[0] });
             localStorage.setItem('creatorKit_vault', JSON.stringify(vaultItems));
             updateVaultBadge();
-            showToast('Video idea saved to Saved Vault!');
+            showToast('Saved to Vault!');
         }
 
-        // --- Feature 3: Social Media Caption Maker ---
         function generateCaption() {
             const topic = document.getElementById('cm-topic').value.trim();
-            if (!topic) {
-                showToast('Please enter a content topic!', 'error');
-                document.getElementById('cm-topic').focus();
-                return;
-            }
-
-            const platform = document.getElementById('cm-platform').value;
-
-            const hooks = [
-                `Stop scrolling if you want to know the secret behind ${topic}!`,
-                `Most creators get ${topic} completely wrong. Here is why...`,
-                `I tested ${topic} for 30 days and the results shocked me!`,
-                `Here is the exact framework I used to master ${topic} instantly.`
-            ];
-
-            const bodies = [
-                `Mastering ${topic} doesn't have to be overwhelming. When you break it down into simple, repeatable steps, everything changes. Watch till the end to see the final result!`,
-                `If you've been struggling with ${topic}, this is your turning point. Drop a comment below if you've tried this method before!`,
-                `Unlocking the full potential of ${topic} is easier than you think. Save this post so you don't forget!`
-            ];
-
-            const ctas = [
-                `Follow for more daily tips on ${topic}!`,
-                `Save this post and share it with a creator friend!`,
-                `Comment "READY" below for the full guide!`,
-                `Subscribe to the channel for weekly deep dives!`
-            ];
-
-            const randomHook = hooks[Math.floor(Math.random() * hooks.length)];
-            const randomBody = bodies[Math.floor(Math.random() * bodies.length)];
-            const randomCta = ctas[Math.floor(Math.random() * ctas.length)];
-            const tags = `#${topic.replace(/[^a-zA-Z0-9]/g, '')} #CreatorKit #ContentCreator #${platform.replace(/\s+/g, '')} #ViralTips`;
-
-            document.getElementById('cm-out-hook').innerText = randomHook;
-            document.getElementById('cm-out-body').innerText = randomBody;
-            document.getElementById('cm-out-cta').innerText = randomCta;
-            document.getElementById('cm-out-tags').innerText = tags;
-
-            showToast('Caption package generated successfully!');
-        }
-
-        function copyCaptionPackage() {
-            const hook = document.getElementById('cm-out-hook').innerText;
-            const body = document.getElementById('cm-out-body').innerText;
-            const cta = document.getElementById('cm-out-cta').innerText;
-            const tags = document.getElementById('cm-out-tags').innerText;
-
-            const fullText = `HOOK:\n${hook}\n\nCAPTION:\n${body}\n\nCTA:\n${cta}\n\nHASHTAGS:\n${tags}`;
-
-            navigator.clipboard.writeText(fullText).then(() => {
-                showToast('Caption package copied to clipboard!');
-            });
+            if (!topic) { showToast('Enter a topic!', 'error'); return; }
+            document.getElementById('cm-out-hook').innerText = `Stop scrolling if you want to master ${topic}!`;
+            document.getElementById('cm-out-body').innerText = `Mastering ${topic} is easier than you think with this simple framework.`;
+            document.getElementById('cm-out-cta').innerText = `Save this post and follow for more!`;
+            document.getElementById('cm-out-tags').innerText = `#${topic.replace(/\s+/g,'')} #CreatorKit #Viral`;
+            showToast('Caption package generated!');
         }
 
         function saveCaptionToVault() {
             const hook = document.getElementById('cm-out-hook').innerText;
-            const body = document.getElementById('cm-out-body').innerText;
-            const cta = document.getElementById('cm-out-cta').innerText;
-            const tags = document.getElementById('cm-out-tags').innerText;
-
-            const topic = document.getElementById('cm-topic').value.trim() || 'Caption Package';
-
-            if (!hook || hook.includes('Enter a topic')) {
-                showToast('Please generate a caption package first!', 'error');
-                return;
-            }
-
-            const fullText = `Hook: ${hook}\n\nCaption: ${body}\n\nCTA: ${cta}\n\nHashtags: ${tags}`;
-
-            const newItem = {
-                id: Date.now(),
-                category: 'Caption',
-                title: topic.length > 30 ? topic.substring(0, 30) + '...' : topic,
-                content: fullText,
-                date: new Date().toISOString().split('T')[0]
-            };
-
-            vaultItems.unshift(newItem);
+            if (hook.includes('Enter a topic')) { showToast('Generate first!', 'error'); return; }
+            vaultItems.unshift({ id: Date.now(), category: 'Caption', title: document.getElementById('cm-topic').value, content: hook, date: new Date().toISOString().split('T')[0] });
             localStorage.setItem('creatorKit_vault', JSON.stringify(vaultItems));
             updateVaultBadge();
-            showToast('Caption package saved to Vault!');
+            showToast('Saved to Vault!');
         }
 
-        // --- Feature 4: Saved Vault ---
         function renderVault() {
-            const searchQuery = document.getElementById('vault-search')?.value.toLowerCase() || '';
-            const filterCategory = document.getElementById('vault-filter')?.value || 'all';
             const grid = document.getElementById('vault-grid');
-
-            const filtered = vaultItems.filter(item => {
-                const matchesSearch = item.title.toLowerCase().includes(searchQuery) || item.content.toLowerCase().includes(searchQuery);
-                const matchesCategory = filterCategory === 'all' || item.category === filterCategory;
-                return matchesSearch && matchesCategory;
-            });
-
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full py-12 text-center text-slate-400">
-                        <i class="fa-solid fa-folder-open text-4xl mb-3 text-slate-300"></i>
-                        <p class="text-sm font-medium">No saved items found in your vault.</p>
+            grid.innerHTML = vaultItems.map(i => `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold px-2 py-1 rounded bg-brightBlue/10 text-brightBlue">${i.category}</span>
+                        <h4 class="font-bold text-navy text-base mt-2">${i.title}</h4>
+                        <p class="text-xs text-slate-600 bg-white p-3 rounded border mt-2 font-mono">${i.content}</p>
                     </div>
-                `;
-                return;
-            }
-
-            grid.innerHTML = filtered.map(item => {
-                const badgeColor = item.category === 'Prompt' ? 'bg-brightBlue/10 text-brightBlue' : item.category === 'Video Idea' ? 'bg-pinkRed/10 text-pinkRed' : 'bg-navy/10 text-navy';
-                return `
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between hover:shadow-sm transition-all">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="${badgeColor} text-xs font-bold px-2.5 py-1 rounded-full">${item.category}</span>
-                                <span class="text-xs text-slate-400 font-medium">${item.date}</span>
-                            </div>
-                            <h4 class="font-bold text-navy text-base mb-2">${item.title}</h4>
-                            <p class="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200 font-mono whitespace-pre-wrap max-h-36 overflow-y-auto custom-scrollbar">${item.content}</p>
-                        </div>
-                        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
-                            <button onclick="copyVaultItem(${item.id})" class="text-xs font-semibold text-brightBlue hover:underline flex items-center space-x-1">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Copy</span>
-                            </button>
-                            <button onclick="deleteVaultItem(${item.id})" class="text-xs font-semibold text-pinkRed hover:underline flex items-center space-x-1">
-                                <i class="fa-solid fa-trash"></i>
-                                <span>Delete</span>
-                            </button>
-                        </div>
+                    <div class="mt-4 pt-3 border-t flex justify-between">
+                        <button onclick="navigator.clipboard.writeText('${i.content}'); showToast('Copied!');" class="text-xs text-brightBlue font-semibold">Copy</button>
+                        <button onclick="vaultItems = vaultItems.filter(v => v.id !== ${i.id}); localStorage.setItem('creatorKit_vault', JSON.stringify(vaultItems)); renderVault(); updateVaultBadge(); showToast('Deleted.');" class="text-xs text-pinkRed font-semibold">Delete</button>
                     </div>
-                `;
-            }).join('');
-        }
-
-        function copyVaultItem(id) {
-            const item = vaultItems.find(i => i.id === id);
-            if (item) {
-                navigator.clipboard.writeText(item.content).then(() => {
-                    showToast('Item copied to clipboard!');
-                });
-            }
-        }
-
-        function deleteVaultItem(id) {
-            vaultItems = vaultItems.filter(i => i.id !== id);
-            localStorage.setItem('creatorKit_vault', JSON.stringify(vaultItems));
-            updateVaultBadge();
-            renderVault();
-            renderDashboard();
-            showToast('Item deleted from vault.');
+                </div>
+            `).join('') || '<p class="text-xs text-slate-400">Vault is empty.</p>';
         }
 
         function updateVaultBadge() {
-            const badge = document.getElementById('vault-badge');
-            if (badge) badge.innerText = vaultItems.length;
-            const statSaved = document.getElementById('stat-saved-count');
-            if (statSaved) statSaved.innerText = vaultItems.length;
+            document.getElementById('vault-badge').innerText = vaultItems.length;
+            document.getElementById('stat-saved-count').innerText = vaultItems.length;
         }
 
-        // --- Feature 5: Content Planner ---
         function renderPlanner() {
             const tbody = document.getElementById('planner-table-body');
-            const totalCount = document.getElementById('planner-total-count');
-            
-            const filtered = currentPlannerFilter === 'all' 
-                ? plannerTasks 
-                : plannerTasks.filter(t => t.status === currentPlannerFilter);
-
-            if (totalCount) totalCount.innerText = plannerTasks.length;
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="py-12 text-center text-slate-400">
-                            <i class="fa-solid fa-calendar-xmark text-3xl mb-2 text-slate-300"></i>
-                            <p class="text-xs font-medium">No content tasks found.</p>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            tbody.innerHTML = filtered.map(task => {
-                const statusColor = task.status === 'Completed' ? 'bg-emerald-500/10 text-emerald-600' : task.status === 'In Progress' ? 'bg-amber-500/10 text-amber-600' : 'bg-slate-200 text-slate-700';
-                return `
-                    <tr class="hover:bg-slate-50/80 transition-colors">
-                        <td class="py-3 px-4 font-semibold text-navy">${task.title}</td>
-                        <td class="py-3 px-4 text-slate-600"><span class="bg-brightBlue/10 text-brightBlue text-xs font-medium px-2 py-0.5 rounded-md">${task.platform}</span></td>
-                        <td class="py-3 px-4 text-slate-500 text-xs">${task.date}</td>
-                        <td class="py-3 px-4"><span class="${statusColor} text-xs font-bold px-2.5 py-1 rounded-full">${task.status}</span></td>
-                        <td class="py-3 px-4 text-right space-x-2">
-                            <button onclick="openPlannerModal('edit', ${task.id})" class="text-brightBlue hover:text-brightBlue/80 text-xs font-semibold">Edit</button>
-                            <button onclick="deletePlannerTask(${task.id})" class="text-pinkRed hover:text-pinkRed/80 text-xs font-semibold">Delete</button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+            document.getElementById('planner-total-count').innerText = plannerTasks.length;
+            tbody.innerHTML = plannerTasks.map(t => `
+                <tr>
+                    <td class="py-3 px-4 font-semibold text-navy">${t.title}</td>
+                    <td class="py-3 px-4 text-slate-600">${t.platform}</td>
+                    <td class="py-3 px-4 text-slate-500 text-xs">${t.date}</td>
+                    <td class="py-3 px-4"><span class="bg-emerald-500/10 text-emerald-600 text-xs font-bold px-2.5 py-1 rounded-full">${t.status}</span></td>
+                    <td class="py-3 px-4 text-right">
+                        <button onclick="plannerTasks = plannerTasks.filter(p => p.id !== ${t.id}); localStorage.setItem('creatorKit_planner', JSON.stringify(plannerTasks)); renderPlanner(); showToast('Deleted.');" class="text-pinkRed text-xs font-semibold">Delete</button>
+                    </td>
+                </tr>
+            `).join('') || `<tr><td colspan="5" class="py-6 text-center text-xs text-slate-400">No tasks found.</td></tr>`;
         }
 
-        function filterPlannerStatus(status) {
-            currentPlannerFilter = status;
-            document.querySelectorAll('.planner-filter-btn').forEach(btn => {
-                btn.className = 'planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition-all';
-            });
-            const activeBtn = document.getElementById(`filter-status-${status}`);
-            if (activeBtn) {
-                activeBtn.className = 'planner-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-navy text-white transition-all';
-            }
-            renderPlanner();
-        }
-
-        function openPlannerModal(mode, id = null) {
-            const modal = document.getElementById('planner-modal');
-            const titleEl = document.getElementById('planner-modal-title');
-            document.getElementById('planner-form').reset();
-            document.getElementById('planner-edit-id').value = '';
-
-            if (mode === 'edit' && id !== null) {
-                titleEl.innerText = 'Edit Content Task';
-                const task = plannerTasks.find(t => t.id === id);
-                if (task) {
-                    document.getElementById('planner-edit-id').value = task.id;
-                    document.getElementById('pl-title').value = task.title;
-                    document.getElementById('pl-platform').value = task.platform;
-                    document.getElementById('pl-date').value = task.date;
-                    document.getElementById('pl-status').value = task.status;
-                }
-            } else {
-                titleEl.innerText = 'Add Content Task';
-                document.getElementById('pl-date').value = new Date().toISOString().split('T')[0];
-            }
-
-            modal.classList.remove('hidden');
-        }
-
-        function closePlannerModal() {
-            document.getElementById('planner-modal').classList.add('hidden');
-        }
-
-        function handlePlannerSubmit(event) {
-            event.preventDefault();
-            const editId = document.getElementById('planner-edit-id').value;
-            const title = document.getElementById('pl-title').value.trim();
-            const platform = document.getElementById('pl-platform').value;
-            const date = document.getElementById('pl-date').value;
-            const status = document.getElementById('pl-status').value;
-
-            if (!title || !date) {
-                showToast('Please fill in all required fields!', 'error');
-                return;
-            }
-
-            if (editId) {
-                plannerTasks = plannerTasks.map(t => t.id == editId ? { ...t, title, platform, date, status } : t);
-                showToast('Content task updated successfully!');
-            } else {
-                const newTask = {
-                    id: Date.now(),
-                    title,
-                    platform,
-                    date,
-                    status
-                };
-                plannerTasks.unshift(newTask);
-                showToast('Content task added successfully!');
-            }
-
+        function openPlannerModal() { document.getElementById('planner-modal').classList.remove('hidden'); }
+        function closePlannerModal() { document.getElementById('planner-modal').classList.add('hidden'); }
+        function handlePlannerSubmit(e) {
+            e.preventDefault();
+            plannerTasks.unshift({ id: Date.now(), title: document.getElementById('pl-title').value, platform: document.getElementById('pl-platform').value, date: document.getElementById('pl-date').value, status: document.getElementById('pl-status').value });
             localStorage.setItem('creatorKit_planner', JSON.stringify(plannerTasks));
             closePlannerModal();
             renderPlanner();
-            renderDashboard();
+            showToast('Task added!');
         }
 
-        function deletePlannerTask(id) {
-            plannerTasks = plannerTasks.filter(t => t.id !== id);
-            localStorage.setItem('creatorKit_planner', JSON.stringify(plannerTasks));
-            renderPlanner();
-            renderDashboard();
-            showToast('Content task deleted.');
-        }
-
-        // --- Dashboard Recent Vault & Stats Render ---
-        function renderDashboard() {
-            updateVaultBadge();
-            const statPlanner = document.getElementById('stat-planner-count');
-            if (statPlanner) statPlanner.innerText = plannerTasks.length;
-
-            const container = document.getElementById('dashboard-recent-vault');
-            if (!container) return;
-
-            const recent = vaultItems.slice(0, 3);
-            if (recent.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-6 text-slate-400 text-xs">
-                        No saved items yet. Generate prompts or video ideas to see them here!
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = recent.map(item => {
-                const badgeColor = item.category === 'Prompt' ? 'bg-brightBlue/10 text-brightBlue' : item.category === 'Video Idea' ? 'bg-pinkRed/10 text-pinkRed' : 'bg-navy/10 text-navy';
-                return `
-                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between">
-                        <div>
-                            <span class="${badgeColor} text-[10px] font-bold px-2 py-0.5 rounded-full">${item.category}</span>
-                            <h5 class="font-bold text-navy text-sm mt-2 mb-1 truncate">${item.title}</h5>
-                            <p class="text-xs text-slate-500 line-clamp-2">${item.content}</p>
-                        </div>
-                        <span class="text-[10px] text-slate-400 mt-3 block">${item.date}</span>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // --- Modal Readme ---
-        function openReadmeModal() {
-            document.getElementById('readme-modal').classList.remove('hidden');
-        }
-
-        function closeReadmeModal() {
-            document.getElementById('readme-modal').classList.add('hidden');
-        }
-
-        // --- Initial Load ---
-        window.onload = function() {
-            renderDashboard();
-            renderVideoIdeas();
-            renderVault();
-            renderPlanner();
-        };
+        function renderDashboard() { updateVaultBadge(); document.getElementById('stat-planner-count').innerText = plannerTasks.length; }
+        function openReadmeModal() { document.getElementById('readme-modal').classList.remove('hidden'); }
+        function closeReadmeModal() { document.getElementById('readme-modal').classList.add('hidden'); }
+        window.onload = () => { renderDashboard(); renderVideoIdeas(); renderVault(); renderPlanner(); };
     </script>
+  <script src="db.js"></script>
 </body>
 </html>
